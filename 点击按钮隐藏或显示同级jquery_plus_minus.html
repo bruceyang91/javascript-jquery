@@ -1,0 +1,32 @@
+	<script>
+	$(function(){
+		$('.plus-minus').click(function(e){ //记下标记
+			var currA=$(this);
+			if(currA.find('i').eq(0).hasClass('fa-minus')){
+				var flag='minus';
+			}else{
+				var flag='plus';
+			}
+		var	currTr= $(this).parent().parent();//找到tr
+			currTr.nextAll('tr').each(			 //遍历tr的同级tr.
+				function (i){
+					if(currTr.attr('data-deep')<$(this).attr('data-deep')){ //当前深度小于父深度
+						//操作
+						if(flag=='minus'){
+							$(this).hide();
+							currA.find('i').eq(0).removeClass('fa-minus').addClass('fa-plus');
+						}else if(flag=='plus'){
+							$(this).show();
+							currA.find('i').eq(0).removeClass('fa-plus').addClass('fa-minus');
+						}
+					}else{
+						//后续的都不操作.
+						return false;
+					}
+				}
+				);
+			e.preventDefault();
+		})
+
+	});
+	</script>
